@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<!--Import Google Icon Font-->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+<!--Import materialize.css-->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+</head>
+<body>
+	<div id="app">
+
+		<nav>
+			<div class="nav-wrapper blue darken-1">
+				<a href="#" class="brand-logo center">BAR DOS AMIGOS</a>
+			</div>
+		</nav>
+
+		<div class="container">
+		
+		<table>
+			<tbody>
+				<tr th:each="usuario : ${users}">
+					<td th:text="${usuario.nomeCompleto}"></td>
+					<td th:text="${usuario.login}"></td>
+					<td th:text="${usuario.senha}"></td>
+					<td><a th:href="@{/salvarusuario/{idsenha}(idsenha=${usuario.senha})}"></a></td>
+				</tr>
+			</tbody>
+		</table>
+
+			<form action="salvarusuario"  method="post">
+				<label>Nome completo</label> 
+				<input type="text" placeholder="Nome" name="nomeCompleto" > 
+				<label>Login</label> 
+				<input type="text" placeholder="Login" name="login"> 
+				<label>Senha</label>
+				<input type="password" placeholder="senha" name="senha"> 
+				<button type="submit" class="waves-effect waves-light btn-small">
+					Salvar<i class="material-icons left">save</i>
+				</button>
+			</form>
+		</div>
+	</div>
+	<script type="text/javascript"
+		src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+</body>
+
+</html>

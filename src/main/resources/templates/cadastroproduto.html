@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<meta charset="UTF-8">
+<!--Import Google Icon Font-->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+<!--Import materialize.css-->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+	<link th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.min.css}">
+</head>
+<body>
+
+	<div id="app">
+
+		<nav>
+		    <div class="nav-wrapper blue darken-1">
+		      <a href="#!" class="brand-logo">Bar dos Amigos</a>
+		      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+		      <ul class="right hide-on-med-and-down">
+		        <li><a href="sass.html">Estoque</a></li>
+		        <li><a href="badges.html">Usuários</a></li>
+		        <li><a href="collapsible.html">Produtos</a></li>
+		        <form th:action="@{/logout}" method="post"
+						class="navbar-form navbar-right">
+						<button type="submit" class="waves-effect waves-light btn-small">Sair</button>
+			</form>
+		      </ul>
+		      
+		    </div>
+		    
+		  </nav>
+		
+		  <ul class="sidenav" id="mobile-demo">
+		    <li><a href="#">Estoque</a></li>
+		    <li><a href="#">Cadastro de usuário</a></li>
+		    <li><a href="#">Cadastro de produto</a></li>
+		  </ul>
+		        
+				<div class="container">
+				
+		
+					<form th:action="@{/salvarproduto}" method="post" th:object="${produtoObj}">
+						<input name="id" type="hidden" th:field="*{id}">
+						<label>Nome do Produto</label> 
+						<input type="text" placeholder="Produto" name="nome"th:field="*{nome}"> 
+						<label>Quantidade</label> 
+						<input type="number" placeholder="QTD" name="quantidade"th:field="*{quantidade}"> 
+						<label>Valor</label>
+						<input type="text" placeholder="Valor" name="valor"th:field="*{valor}"> 
+						<label>Data de validade</label> 
+						<input type="date" placeholder="validade" name="validade"th:field="*{validade}">
+						<label>Códogo de Barras</label> 
+						<input type="text" placeholder="código de barras" name="barras"th:field="*{barras}">
+						
+						<button type="submit" class="waves-effect waves-light btn-small" sec:authorize="hasRole('ADMIN')">
+							Salvar<i class="material-icons left">save</i>
+						</button>
+					</form>
+					<br><br>
+					<div class="row">
+						<form th:action="@{/pesquisaproduto}" method="post" th:object="${produtoObj}"
+							class="col s12">
+							<div class="input-field col s12">
+								<label for="pesquisaprod" class="active">Pesquisar nome</label>
+								<input name="pesquisaprod" id="pesquisaprod" class="validate">
+								<button class="btn waves-effect waves-light" type="submit">Buscar</button>
+							</div>
+						</form>
+			        </div>
+			        
+			        <div class="row">
+						<form th:action="@{/pesquisacodigo}" method="post" th:object="${produtoObj}"
+							class="col s12">
+							<div class="input-field col s12">
+								<label for="pesquisacod" class="active">Pesquisar código</label>
+								<input name="pesquisacod" id="pesquisacod" class="validate">
+								<button class="btn waves-effect waves-light" type="submit">Buscar</button>
+							</div>
+						</form>
+			        </div>
+						
+				</div>
+				
+			
+					<div class="container">
+						<table>
+		
+							<thead>
+		
+								<tr>
+									<th>CÓDIGO</th>
+									<th>NOME</th>
+									<th>QTD</th>
+									<th>VALOR</th>
+									<th>VALIDADE</th>
+								</tr>
+		
+							</thead>
+		
+							<tbody>
+		
+								<tr th:each="produto : ${produtos} ">
+		
+									<td th:text="${produto.id}"></td>
+									<td th:text="${produto.nome}"></td>
+									<td th:text="${produto.quantidade}"></td>
+									<td th:text="${produto.valor}"></td>
+									<td th:text="${produto.validade}"></td>
+									<td><a sec:authorize="hasRole('ADMIN')"
+										th:href="@{/removerproduto/{idproduto}(idproduto=${produto.id})}"
+										class="waves-effect btn-small red darken-1"> <i
+											class="material-icons">delete_sweep</i>
+									</a></td>
+									<td><a sec:authorize="hasRole('ADMIN')"
+										th:href="@{/editarproduto/{idproduto}(idproduto=${produto.id})}"
+										class="waves-effect btn-small blue darken-1"> <i
+											class="material-icons">create</i>
+									</a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+
+		</div>
+	<script type="text/javascript"
+		src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+</body>
+
+</html>
