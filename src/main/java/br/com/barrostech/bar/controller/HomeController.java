@@ -4,6 +4,7 @@ package br.com.barrostech.bar.controller;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,10 +23,19 @@ public class HomeController {
 	private ProdutoRepository produtoRepository;
 
 	@GetMapping("/")
-	public ModelAndView init() {
+	public ModelAndView init(Pageable pageable) {
 		ModelAndView view = new ModelAndView("cadastroproduto");
 		view.addObject("produtoObj", new Produtos());
-		Iterable<Produtos> produtos = produtoRepository.findAll();
+		Iterable<Produtos> produtos = produtoRepository.findAll(pageable);
+		view.addObject("produtos", produtos);
+		return view;
+	}
+	
+	@GetMapping("**/listaproduto")
+	public ModelAndView lista(Pageable pageable) {
+		ModelAndView view = new ModelAndView("listaproduto");
+		view.addObject("produtoObj", new Produtos());
+		Iterable<Produtos> produtos = produtoRepository.findAll(pageable);
 		view.addObject("produtos", produtos);
 		return view;
 	}
@@ -81,6 +91,15 @@ public class HomeController {
 	public ModelAndView pesquisarCod(@RequestParam("pesquisacod") String codigo) {
 		ModelAndView view = new ModelAndView("cadastroproduto");
 		view.addObject("produtos", produtoRepository.findProdByCod(codigo));
+		view.addObject("produtoObj", new Produtos());
+		return view;
+		
+	}
+	
+	@PostMapping("**/pesquisavalidade")
+	public ModelAndView pesquisarValidade(@RequestParam("data_inicio") String inicio,@RequestParam("data_fim")String fim) {
+		ModelAndView view = new ModelAndView("cadastroproduto");
+		view.addObject("produtos", produtoRepository.findProdByValidade(inicio, fim));
 		view.addObject("produtoObj", new Produtos());
 		return view;
 		

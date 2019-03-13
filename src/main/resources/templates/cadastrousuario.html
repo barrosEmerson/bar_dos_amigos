@@ -10,6 +10,7 @@
 <!--Import materialize.css-->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+	<link th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.min.css}">
 </head>
 <body>
 	<div id="app">
@@ -22,24 +23,14 @@
 
 		<div class="container">
 		
-		<table>
-			<tbody>
-				<tr th:each="usuario : ${users}">
-					<td th:text="${usuario.nomeCompleto}"></td>
-					<td th:text="${usuario.login}"></td>
-					<td th:text="${usuario.senha}"></td>
-					<td><a th:href="@{/salvarusuario/{idsenha}(idsenha=${usuario.senha})}"></a></td>
-				</tr>
-			</tbody>
-		</table>
-
-			<form action="salvarusuario"  method="post">
+			<form th:action="@{/salvarusuario}"  method="post">
+				<input name="id" type="hidden"/>
 				<label>Nome completo</label> 
-				<input type="text" placeholder="Nome" name="nomeCompleto" > 
+				<input type="text" placeholder="João da Silva..." name="nome" id="nome"> 
 				<label>Login</label> 
-				<input type="text" placeholder="Login" name="login"> 
+				<input type="text" placeholder="Login" name="username" id="username" > 
 				<label>Senha</label>
-				<input type="password" placeholder="senha" name="senha"> 
+				<input type="password" placeholder="senha" name="password" id="password" > 
 				<button type="submit" class="waves-effect waves-light btn-small">
 					Salvar<i class="material-icons left">save</i>
 				</button>

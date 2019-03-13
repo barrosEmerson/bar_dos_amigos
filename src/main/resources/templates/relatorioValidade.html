@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<meta charset="UTF-8">
+<!--Import Google Icon Font-->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+<!--Import materialize.css-->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+<link th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.min.css}">
+<link rel="stylesheet" href="css/estilo.css" />
+</head>
+<body>
+	<div class="app">
+	
+		<nav>
+			<div class="nav-wrapper blue darken-1">
+				<a href="#!" class="brand-logo">Bar dos Amigos</a> <a href="#"
+					data-target="mobile-demo" class="sidenav-trigger"><i
+					class="material-icons">menu</i></a>
+				<ul class="right hide-on-med-and-down">
+					<li><a th:href="@{/listaproduto}">Estoque</a></li>
+					<li><a href="#">Vendas</a></li>
+					<li><a th:href="@{/}">Cadastro de Produtos</a></li>
+					<form th:action="@{/logout}" method="post"
+						class="navbar-form navbar-right">
+						<button type="submit" class="waves-effect waves-light btn-small">Sair</button>
+					</form>
+				</ul>
+
+			</div>
+
+		</nav>
+		<ul class="sidenav" id="mobile-demo">
+			<li><a th:href="@{/listaproduto}">Estoque</a></li>
+			<li><a href="#">Cadastro de usuário</a></li>
+			<li><a href="#">Vendas</a></li>
+		</ul>
+	<div class="container">
+		<h4>Relatórios do prazo de validade dos produtos</h4>
+		<form method="POST" th:object="${periodoRelatorio}"
+			th:action="@{/relatorios/validade}">
+			<div class="row">
+				<div class="form-group  col-sm-12">
+					
+					<div class="input-field col s3">
+						<label>Data início:</label><br>
+						<input type="date" name="dataInicio" id="dataInicio"
+							th:field="*{dataInicio}" autocomplete="off" /> 
+							<br>
+					</div>
+					<div class="input-field col s3">	
+						<label>Data final:</label><br>	
+						<input type="date" name="dataFim" id="dataFim"
+							th:field="*{dataFim}" autocomplete="off" />
+					</div>
+				</div>
+			</div>
+			<button type="submit" class="btn  btn-primary">Gerar Relatório</button>
+	
+		</form>
+	</div>
+</div>
+</body>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+</html>	

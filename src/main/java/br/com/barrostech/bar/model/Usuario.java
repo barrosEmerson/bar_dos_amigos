@@ -13,13 +13,15 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 @Entity
 public class Usuario implements UserDetails {
-	
+
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	private String username;
 	
 	private String password;
 	
-	private String nomeCompleto;
+	private String nome;
 
 	@ManyToMany
 	@JoinTable(name = "usuario_roles",joinColumns = @JoinColumn(
@@ -37,12 +39,12 @@ public class Usuario implements UserDetails {
 		this.roles = role;
 	}
 
-	public String getNomeCompleto() {
-		return nomeCompleto;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setNomeCompleto(String nomeCompleto) {
-		this.nomeCompleto = nomeCompleto;
+	public void setNomeCompleto(String nome) {
+		this.nome = nome;
 	}
 
 	

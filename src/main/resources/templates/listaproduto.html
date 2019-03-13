@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<meta charset="UTF-8">
+<!--Import Google Icon Font-->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+<!--Import materialize.css-->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+<link th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.min.css}">
+<link rel="stylesheet" href="css/upload.min.css"/>
+<link rel="stylesheet" href="css/estilo.css"/>
+
+</head>
+<body>
+
+	<div id="app">
+
+		<nav>
+			<div class="nav-wrapper blue darken-1">
+				<a href="#!" class="brand-logo">Bar dos Amigos</a> <a href="#"
+					data-target="mobile-demo" class="sidenav-trigger"><i
+					class="material-icons">menu</i></a>
+				<ul class="right hide-on-med-and-down">
+					<li><a th:href="@{/}">Cadastro produto</a></li>
+					<li><a href="#">Vendas</a></li>
+					<li><a th:href="@{/relatorios/validade}">Relatórios</a></li>
+					<form th:action="@{/logout}" method="post"
+						class="navbar-form navbar-right">
+						<button type="submit" class="waves-effect waves-light btn-small">Sair</button>
+					</form>
+				</ul>
+
+			</div>
+
+		</nav>
+
+		<ul class="sidenav" id="mobile-demo">
+			<li><a href="#">Estoque</a></li>
+			<li><a th:href="@{/}">Cadastro de produto</a></li>
+			<li><a href="#">Vendas</a></li>
+		</ul>
+		
+		<div class="container">
+			<table>
+
+				<thead>
+
+					<tr>
+						<th>CÓDIGO</th>
+						<th>NOME</th>
+						<th>QTD</th>
+						<th>VALOR</th>
+						<th>VALIDADE</th>
+					</tr>
+
+				</thead>
+
+				<tbody>
+
+					<tr th:each="produto : ${produtos} ">
+
+						<td th:text="${produto.id}"></td>
+						<td th:text="${produto.nome}"></td>
+						<td th:text="${produto.quantidade}"></td>
+						<td th:text="${produto.valor}"></td>
+						<td th:text="${produto.validade}"></td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="row">
+				<div class="col-sm-6">
+					<div sd:pagination-summary="">info</div>
+				</div>
+				<div class="col-sm-6">
+					<nav class="pull-right blue darken-1">
+						<ul class="pagination" sd:pagination="full">
+							<!-- Pagination created by SpringDataDialect, this content is just for mockup -->
+							<li class="disabled"><a href="#" aria-label="Previous"><span
+									aria-hidden="true">&laquo;</span></a></li>
+							<li class="active "><a href="#">1 <span class="sr-only ">(current)</span></a></li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+			
+		</div>
+
+
+	</div>
+	<script type="text/javascript"
+		src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+	<script type="text/javascript" src="js/uikit.min.js"></script>
+	<script type="text/javascript" src="js/upload.min.js"></script>
+	<script>
+	$(function(){
+		var settings={
+				type: 'json',
+				filelimit: 1,
+				allow: '*.(jpg|jpeg|png)',
+				action: ''
+		};
+		UIkit.uploadSelect($('#upload-select'));
+		UIkit.uploadDrop($('#upload-drop'));
+	})
+	
+	</script>
+</body>
+
+</html>

@@ -9,6 +9,11 @@ body {
   background:#333 url(/images/classy_fabric.png);
 }
 
+.card{
+	position: absolute;
+	margin-top: 50px;
+}
+
 form {
  	background:#111; 
   width:300px;
@@ -151,3 +156,5 @@ label:hover ~ input[type=password] {
 	float: right;
 	margin-top:10px;
 }
+
+
